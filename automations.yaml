@@ -1,0 +1,16 @@
+- id: '1589623836394'
+  alias: Turn on the lights when the sun is set
+  description: ''
+  trigger:
+  - event: sunset
+    platform: sun
+  condition: []
+  action:
+  - device_id: e0a8149f4d014ac1828e61122d98263b
+    domain: light
+    entity_id: light.living_room_left_light
+    type: turn_on
+  - device_id: 0f78cce2a43d4a52b84063923f8c8372
+    domain: light
+    entity_id: light.living_room_right_light
+    type: turn_on

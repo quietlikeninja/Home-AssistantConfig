@@ -1,0 +1,23 @@
+#Lights
+Living Room Lights:
+    entities:
+        - light.living_room_left_light
+        - light.living_room_right_light
+        
+Kitchen Lights:
+    entities:
+        - light.kitchen_light
+        - light.kitchen_spotlight_1
+        - light.kitchen_spotlight_2
+        - light.kitchen_spotlight_3
+        
+Entry Lights:
+    entities:
+        - light.entry_back_light
+        - light.entry_front_light
+        - light.garage_entry_light
+        
+Media Room Lights:
+    entities:
+        - light.media_room_back_light
+        - light.media_room_front_light
