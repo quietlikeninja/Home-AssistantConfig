@@ -1,0 +1,16 @@
+'1589717423276':
+  alias: Learn Command
+  sequence:
+  - data:
+      command: power
+      device: living_room_tv
+    entity_id: remote.living_room_remote
+    service: remote.learn_command
+'1589717770567':
+  alias: Send Power to Living Room TV
+  sequence:
+  - data:
+      command: power
+      device: living_room_tv
+    entity_id: remote.living_room_remote
+    service: remote.send_command

@@ -14,3 +14,124 @@
     domain: light
     entity_id: light.living_room_right_light
     type: turn_on
+- id: '1589703653578'
+  alias: Turn on lights when motion detected in Kitchen (night)
+  description: ''
+  trigger:
+  - device_id: e029628c2a0a4ce3a29d55ce64a5a4ac
+    domain: binary_sensor
+    entity_id: binary_sensor.kitchen_sensor_motion
+    platform: device
+    type: motion
+  condition:
+  - after: '23:00:00'
+    before: 05:00:00
+    condition: time
+  action:
+  - brightness_pct: 50
+    device_id: 6e75d89359d74361b140aa939527d24d
+    domain: light
+    entity_id: light.kitchen_spotlight_1
+    type: turn_on
+  - brightness_pct: 50
+    device_id: 8c10010c4b5c4c5e869a8e9b7b551c4d
+    domain: light
+    entity_id: light.kitchen_spotlight_3
+    type: turn_on
+  - brightness_pct: 50
+    device_id: b2fca9a5826e4f60a9b7fec9429259b5
+    domain: light
+    entity_id: light.kitchen_spotlight_2
+    type: turn_on
+  - brightness_pct: 50
+    device_id: 526430d480684492a68a0c85f4c21f05
+    domain: light
+    entity_id: light.kitchen_light
+    type: turn_on
+- id: '1589703653579'
+  alias: Turn on lights when motion detected in Kitchen (day)
+  description: ''
+  trigger:
+  - device_id: e029628c2a0a4ce3a29d55ce64a5a4ac
+    domain: binary_sensor
+    entity_id: binary_sensor.kitchen_sensor_motion
+    platform: device
+    type: motion
+  condition:
+  - after: 05:00:00
+    before: '23:00:00'
+    condition: time
+  action:
+  - brightness_pct: 100
+    device_id: 6e75d89359d74361b140aa939527d24d
+    domain: light
+    entity_id: light.kitchen_spotlight_1
+    type: turn_on
+  - brightness_pct: 100
+    device_id: 8c10010c4b5c4c5e869a8e9b7b551c4d
+    domain: light
+    entity_id: light.kitchen_spotlight_3
+    type: turn_on
+  - brightness_pct: 100
+    device_id: b2fca9a5826e4f60a9b7fec9429259b5
+    domain: light
+    entity_id: light.kitchen_spotlight_2
+    type: turn_on
+  - brightness_pct: 100
+    device_id: 526430d480684492a68a0c85f4c21f05
+    domain: light
+    entity_id: light.kitchen_light
+    type: turn_on
+- id: '1589705587298'
+  alias: Turn off Kitchen lights when no motion detected for 10 minutes
+  description: ''
+  trigger:
+  - device_id: e029628c2a0a4ce3a29d55ce64a5a4ac
+    domain: binary_sensor
+    entity_id: binary_sensor.kitchen_sensor_motion
+    for:
+      hours: 0
+      minutes: 10
+      seconds: 0
+    platform: device
+    type: no_motion
+  condition: []
+  action:
+  - device_id: 6e75d89359d74361b140aa939527d24d
+    domain: light
+    entity_id: light.kitchen_spotlight_1
+    type: turn_off
+  - device_id: 8c10010c4b5c4c5e869a8e9b7b551c4d
+    domain: light
+    entity_id: light.kitchen_spotlight_3
+    type: turn_off
+  - device_id: b2fca9a5826e4f60a9b7fec9429259b5
+    domain: light
+    entity_id: light.kitchen_spotlight_2
+    type: turn_off
+  - device_id: 526430d480684492a68a0c85f4c21f05
+    domain: light
+    entity_id: light.kitchen_light
+    type: turn_off
+- id: '1589708292156'
+  alias: Turn off all lights when Justin and Steph leave
+  description: ''
+  trigger:
+  - entity_id: person.justin
+    from: home
+    platform: state
+    to: away
+  - entity_id: person.steph
+    from: home
+    platform: state
+    to: away
+  condition:
+  - condition: state
+    entity_id: person.justin
+    state: away
+  - condition: state
+    entity_id: person.steph
+    state: away
+  action:
+  - entity_id: all
+    service: light.turn_off
