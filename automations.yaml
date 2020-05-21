@@ -216,7 +216,7 @@
   alias: Christmas Light Randomness
   trigger:
   - platform: time_pattern
-    seconds: /5
+    seconds: /1
   condition: []
   action:
-  - service: script.select_christmas_light
+  - service: script.set_christmas_color

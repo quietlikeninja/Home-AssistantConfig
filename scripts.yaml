@@ -14,44 +14,14 @@
       device: living_room_tv
     entity_id: remote.living_room_remote
     service: remote.send_command
-select_christmas_light:
-  sequence:
-  - service: script.set_christmas_color
-    data_template:
-      light_id: "{% set i = (range(1,23)|random) %} {% if i == 1 %}\n  {% set chosen_light\
-        \ = \"light.living_room_left_light\" %}\n{% elif i == 2 %}\n  {% set chosen_light\
-        \ = \"light.living_room_right_light\" %}\n{% elif i == 3 %}\n  {% set chosen_light\
-        \ = \"light.hue_play_1\" %}\n{% elif i == 4 %}\n  {% set chosen_light = \"\
-        light.hue_play_2\" %}\n{% elif i == 5 %}\n  {% set chosen_light = \"light.bedroom_2_light\"\
-        \ %}\n{% elif i == 6 %}\n  {% set chosen_light = \"light.bedroom_3_light\"\
-        \ %}\n{% elif i == 7 %}\n  {% set chosen_light = \"light.dining_room_light\"\
-        \ %}\n{% elif i == 8 %}\n  {% set chosen_light = \"light.entry_back_light\"\
-        \ %}\n{% elif i == 9 %}\n  {% set chosen_light = \"light.entry_front_light\"\
-        \ %}\n{% elif i == 10 %}\n  {% set chosen_light = \"light.garage_entry_light\"\
-        \ %}\n{% elif i == 11 %}\n  {% set chosen_light = \"light.hallway_light\"\
-        \ %}\n{% elif i == 12 %}\n  {% set chosen_light = \"light.kitchen_light\"\
-        \ %}\n{% elif i == 13 %}\n  {% set chosen_light = \"light.kitchen_spotlight_1\"\
-        \ %}\n{% elif i == 14 %}\n  {% set chosen_light = \"light.kitchen_spotlight_2\"\
-        \ %}\n{% elif i == 15 %}\n  {% set chosen_light = \"light.kitchen_spotlight_3\"\
-        \ %}\n{% elif i == 16 %}\n  {% set chosen_light = \"light.laundry_light\"\
-        \ %}\n{% elif i == 17 %}\n  {% set chosen_light = \"light.main_bathroom_light\"\
-        \ %}\n{% elif i == 18 %}\n  {% set chosen_light = \"light.main_bedroom_light\"\
-        \ %}\n{% elif i == 19 %}\n  {% set chosen_light = \"light.media_room_back_light\"\
-        \ %}\n{% elif i == 20 %}\n  {% set chosen_light = \"light.media_room_front_light\"\
-        \ %}\n{% elif i == 21 %}\n  {% set chosen_light = \"light.office_light\" %}\n\
-        {% elif i == 22 %}\n  {% set chosen_light = \"light.sewing_room_light\" %}\n\
-        {% endif %} {{ chosen_light }}"
-      color_name: "{%- set i = (range(1,6)|random) %}   {%- if i == 1 %}  \n  {% set\
-        \ color = \"red\" %}  \n{%- elif i == 2 %}  \n  {% set color = \"red\" %}\
-        \  \n{%- elif i == 3 %}  \n  {% set color = \"green\" %}  \n{%- elif i ==\
-        \ 4 %}  \n  {% set color = \"green\" %}  \n{%- elif i == 5 %}  \n  {% set\
-        \ color = \"white\" %}  \n{%- endif %}   {{ color }}  "
 set_christmas_color:
   sequence:
   - service: light.turn_on
     data_template:
-      entity_id: '{{ light_id }}'
-      color_name: '{{ color_name }}'
+      entity_id: '{{ states.group.all_lights.attributes.entity_id | random }}'
+      color_name: >
+        {% set colors = ['white', 'red', 'green'] %}
+        {{ colors|random }}
       transition: 10
 '1590062902241':
   alias: Vomit Christmas
