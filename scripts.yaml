@@ -19,7 +19,7 @@ select_christmas_light:
   - service: script.set_christmas_color
     data_template:
       light_id: >-
-        {% set i = (range(1,5)|random) %}
+        {% set i = (range(1,23)|random) %}
         {% if i == 1 %}
           {% set chosen_light = "light.living_room_left_light" %}
         {% elif i == 2 %}
