@@ -21,7 +21,12 @@ aarlo:
   refresh_devices_every: 2
   stream_timeout: 120
   
+camera:
+  - platform: aarlo
+  
 remote:
   - platform: broadlink
     host: 192.168.1.33
     mac: 34:EA:34:99:EB:88
+    
+python_script:

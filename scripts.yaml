@@ -14,3 +14,40 @@
       device: living_room_tv
     entity_id: remote.living_room_remote
     service: remote.send_command
+select_christmas_light:
+  sequence:
+  - service: script.set_christmas_color
+    data_template:
+      light_id: >-
+        {% set i = (range(1,5)|random) %}
+        {% if i == 1 %}
+          {% set chosen_light = "light.living_room_left_light" %}
+        {% elif i == 2 %}
+          {% set chosen_light = "light.living_room_right_light" %}
+        {% elif i == 3 %}
+          {% set chosen_light = "light.hue_play_1" %}
+        {% elif i == 4 %}
+          {% set chosen_light = "light.hue_play_2" %}
+        {% endif %}
+        {{ chosen_light }}
+      color_name: >-  
+        {%- set i = (range(1,6)|random) %}  
+        {%- if i == 1 %}  
+          {% set color = "red" %}  
+        {%- elif i == 2 %}  
+          {% set color = "red" %}  
+        {%- elif i == 3 %}  
+          {% set color = "green" %}  
+        {%- elif i == 4 %}  
+          {% set color = "green" %}  
+        {%- elif i == 5 %}  
+          {% set color = "white" %}  
+        {%- endif %}  
+        {{ color }}  
+set_christmas_color:
+  sequence:
+    - service: light.turn_on
+      data_template:
+        entity_id: '{{ light_id }}'
+        color_name: '{{ color_name }}'
+        transition: 10

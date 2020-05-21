@@ -4,7 +4,17 @@
   trigger:
   - event: sunset
     platform: sun
-  condition: []
+  - platform: time_pattern
+    seconds: '5'
+  condition:
+  - condition: or
+    conditions:
+    - condition: zone
+      entity_id: person.justin
+      zone: zone.home
+    - condition: zone
+      entity_id: person.steph
+      zone: zone.home
   action:
   - device_id: e0a8149f4d014ac1828e61122d98263b
     domain: light
@@ -13,6 +23,18 @@
   - device_id: 0f78cce2a43d4a52b84063923f8c8372
     domain: light
     entity_id: light.living_room_right_light
+    type: turn_on
+  - device_id: 5c8d0f1cfbbf480990cdd590f6cdc912
+    domain: light
+    entity_id: light.garage_entry_light
+    type: turn_on
+  - device_id: 8ee26012d1a54a8086f9a1a441cebe88
+    domain: light
+    entity_id: light.entry_back_light
+    type: turn_on
+  - device_id: 49ad2802865d4e1ab115f09cf973aa6b
+    domain: light
+    entity_id: light.entry_front_light
     type: turn_on
 - id: '1589703653578'
   alias: Turn on lights when motion detected in Kitchen (night)
@@ -135,3 +157,66 @@
   action:
   - entity_id: all
     service: light.turn_off
+- id: '1589708292157'
+  alias: HA Start automation
+  trigger:
+    platform: homeassistant
+    event: start
+  action:
+  - service: python_script.create_all_group
+    data:
+      domain: light
+      group: all_lights
+- id: '1589786201786'
+  alias: Turn on lights when I arrive home
+  description: ''
+  trigger:
+  - entity_id: person.justin
+    event: enter
+    platform: zone
+    zone: zone.home
+  - entity_id: person.steph
+    event: enter
+    platform: zone
+    zone: zone.home
+  condition:
+    condition: state
+    entity_id: sun.sun
+    state: below_horizon
+  action:
+  - device_id: 8ee26012d1a54a8086f9a1a441cebe88
+    domain: light
+    entity_id: light.entry_back_light
+    type: turn_on
+  - device_id: 49ad2802865d4e1ab115f09cf973aa6b
+    domain: light
+    entity_id: light.entry_front_light
+    type: turn_on
+  - device_id: 5c8d0f1cfbbf480990cdd590f6cdc912
+    domain: light
+    entity_id: light.garage_entry_light
+    type: turn_on
+  - device_id: e0a8149f4d014ac1828e61122d98263b
+    domain: light
+    entity_id: light.living_room_left_light
+    type: turn_on
+  - device_id: 0f78cce2a43d4a52b84063923f8c8372
+    domain: light
+    entity_id: light.living_room_right_light
+    type: turn_on
+  - device_id: 404e713758a54fc6973d0f0978925a62
+    domain: light
+    entity_id: light.dining_room_light
+    type: turn_on
+  - device_id: 526430d480684492a68a0c85f4c21f05
+    domain: light
+    entity_id: light.kitchen_light
+    type: turn_on
+- id: '1544837457650'
+  alias: Christmas Light Randomness
+  trigger:
+  - platform: time_pattern
+    seconds: /5
+  condition: []
+  action:
+  - service: script.select_christmas_light
