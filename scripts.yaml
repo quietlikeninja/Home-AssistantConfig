@@ -18,72 +18,75 @@ select_christmas_light:
   sequence:
   - service: script.set_christmas_color
     data_template:
-      light_id: >-
-        {% set i = (range(1,23)|random) %}
-        {% if i == 1 %}
-          {% set chosen_light = "light.living_room_left_light" %}
-        {% elif i == 2 %}
-          {% set chosen_light = "light.living_room_right_light" %}
-        {% elif i == 3 %}
-          {% set chosen_light = "light.hue_play_1" %}
-        {% elif i == 4 %}
-          {% set chosen_light = "light.hue_play_2" %}
-        {% elif i == 5 %}
-          {% set chosen_light = "light.bedroom_2_light" %}
-        {% elif i == 6 %}
-          {% set chosen_light = "light.bedroom_3_light" %}
-        {% elif i == 7 %}
-          {% set chosen_light = "light.dining_room_light" %}
-        {% elif i == 8 %}
-          {% set chosen_light = "light.entry_back_light" %}
-        {% elif i == 9 %}
-          {% set chosen_light = "light.entry_front_light" %}
-        {% elif i == 10 %}
-          {% set chosen_light = "light.garage_entry_light" %}
-        {% elif i == 11 %}
-          {% set chosen_light = "light.hallway_light" %}
-        {% elif i == 12 %}
-          {% set chosen_light = "light.kitchen_light" %}
-        {% elif i == 13 %}
-          {% set chosen_light = "light.kitchen_spotlight_1" %}
-        {% elif i == 14 %}
-          {% set chosen_light = "light.kitchen_spotlight_2" %}
-        {% elif i == 15 %}
-          {% set chosen_light = "light.kitchen_spotlight_3" %}
-        {% elif i == 16 %}
-          {% set chosen_light = "light.laundry_light" %}
-        {% elif i == 17 %}
-          {% set chosen_light = "light.main_bathroom_light" %}
-        {% elif i == 18 %}
-          {% set chosen_light = "light.main_bedroom_light" %}
-        {% elif i == 19 %}
-          {% set chosen_light = "light.media_room_back_light" %}
-        {% elif i == 20 %}
-          {% set chosen_light = "light.media_room_front_light" %}
-        {% elif i == 21 %}
-          {% set chosen_light = "light.office_light" %}
-        {% elif i == 22 %}
-          {% set chosen_light = "light.sewing_room_light" %}
-        {% endif %}
-        {{ chosen_light }}
-      color_name: >-  
-        {%- set i = (range(1,6)|random) %}  
-        {%- if i == 1 %}  
-          {% set color = "red" %}  
-        {%- elif i == 2 %}  
-          {% set color = "red" %}  
-        {%- elif i == 3 %}  
-          {% set color = "green" %}  
-        {%- elif i == 4 %}  
-          {% set color = "green" %}  
-        {%- elif i == 5 %}  
-          {% set color = "white" %}  
-        {%- endif %}  
-        {{ color }}  
+      light_id: "{% set i = (range(1,23)|random) %} {% if i == 1 %}\n  {% set chosen_light\
+        \ = \"light.living_room_left_light\" %}\n{% elif i == 2 %}\n  {% set chosen_light\
+        \ = \"light.living_room_right_light\" %}\n{% elif i == 3 %}\n  {% set chosen_light\
+        \ = \"light.hue_play_1\" %}\n{% elif i == 4 %}\n  {% set chosen_light = \"\
+        light.hue_play_2\" %}\n{% elif i == 5 %}\n  {% set chosen_light = \"light.bedroom_2_light\"\
+        \ %}\n{% elif i == 6 %}\n  {% set chosen_light = \"light.bedroom_3_light\"\
+        \ %}\n{% elif i == 7 %}\n  {% set chosen_light = \"light.dining_room_light\"\
+        \ %}\n{% elif i == 8 %}\n  {% set chosen_light = \"light.entry_back_light\"\
+        \ %}\n{% elif i == 9 %}\n  {% set chosen_light = \"light.entry_front_light\"\
+        \ %}\n{% elif i == 10 %}\n  {% set chosen_light = \"light.garage_entry_light\"\
+        \ %}\n{% elif i == 11 %}\n  {% set chosen_light = \"light.hallway_light\"\
+        \ %}\n{% elif i == 12 %}\n  {% set chosen_light = \"light.kitchen_light\"\
+        \ %}\n{% elif i == 13 %}\n  {% set chosen_light = \"light.kitchen_spotlight_1\"\
+        \ %}\n{% elif i == 14 %}\n  {% set chosen_light = \"light.kitchen_spotlight_2\"\
+        \ %}\n{% elif i == 15 %}\n  {% set chosen_light = \"light.kitchen_spotlight_3\"\
+        \ %}\n{% elif i == 16 %}\n  {% set chosen_light = \"light.laundry_light\"\
+        \ %}\n{% elif i == 17 %}\n  {% set chosen_light = \"light.main_bathroom_light\"\
+        \ %}\n{% elif i == 18 %}\n  {% set chosen_light = \"light.main_bedroom_light\"\
+        \ %}\n{% elif i == 19 %}\n  {% set chosen_light = \"light.media_room_back_light\"\
+        \ %}\n{% elif i == 20 %}\n  {% set chosen_light = \"light.media_room_front_light\"\
+        \ %}\n{% elif i == 21 %}\n  {% set chosen_light = \"light.office_light\" %}\n\
+        {% elif i == 22 %}\n  {% set chosen_light = \"light.sewing_room_light\" %}\n\
+        {% endif %} {{ chosen_light }}"
+      color_name: "{%- set i = (range(1,6)|random) %}   {%- if i == 1 %}  \n  {% set\
+        \ color = \"red\" %}  \n{%- elif i == 2 %}  \n  {% set color = \"red\" %}\
+        \  \n{%- elif i == 3 %}  \n  {% set color = \"green\" %}  \n{%- elif i ==\
+        \ 4 %}  \n  {% set color = \"green\" %}  \n{%- elif i == 5 %}  \n  {% set\
+        \ color = \"white\" %}  \n{%- endif %}   {{ color }}  "
 set_christmas_color:
   sequence:
-    - service: light.turn_on
-      data_template:
-        entity_id: '{{ light_id }}'
-        color_name: '{{ color_name }}'
-        transition: 10
+  - service: light.turn_on
+    data_template:
+      entity_id: '{{ light_id }}'
+      color_name: '{{ color_name }}'
+      transition: 10
+'1590062902241':
+  alias: Vomit Christmas
+  sequence:
+  - data: {}
+    entity_id: automation.christmas_light_randomness
+    service: automation.turn_on
+  - data:
+      media_content_id: all i want for christmas mariah carey
+      media_content_type: APPLE_MUSIC
+    entity_id: media_player.sewing_room_echo_dot,media_player.office_echo_dot,media_player.justin_s_echo_plus,media_player.media_room_echo_dot,media_player.bedroom_2_echo_dot,media_player.main_bedroom_echo_dot
+    service: media_player.play_media
+'1590062902242':
+  alias: Kill Christmas
+  sequence:
+  - data: {}
+    entity_id: automation.christmas_light_randomness
+    service: automation.turn_off
+  - data:
+      brightness_pct: 100
+      color_name: white
+    entity_id: all
+    service: light.turn_on
+  - data:
+      data:
+        type: tts
+      message: Christmas is dead.
+      target:
+      - media_player.justin_s_echo_plus
+      - media_player.bedroom_2_echo_dot
+      - media_player.main_bedroom_echo_dot
+      - media_player.media_room_echo_dot
+      - media_player.office_echo_dot
+      - media_player.sewing_room_echo_dot
+    service: notify.alexa_media
+  - data: {}
+    entity_id: all
+    service: media_player.media_stop
