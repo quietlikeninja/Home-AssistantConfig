@@ -28,6 +28,42 @@ select_christmas_light:
           {% set chosen_light = "light.hue_play_1" %}
         {% elif i == 4 %}
           {% set chosen_light = "light.hue_play_2" %}
+        {% elif i == 5 %}
+          {% set chosen_light = "light.bedroom_2_light" %}
+        {% elif i == 6 %}
+          {% set chosen_light = "light.bedroom_3_light" %}
+        {% elif i == 7 %}
+          {% set chosen_light = "light.dining_room_light" %}
+        {% elif i == 8 %}
+          {% set chosen_light = "light.entry_back_light" %}
+        {% elif i == 9 %}
+          {% set chosen_light = "light.entry_front_light" %}
+        {% elif i == 10 %}
+          {% set chosen_light = "light.garage_entry_light" %}
+        {% elif i == 11 %}
+          {% set chosen_light = "light.hallway_light" %}
+        {% elif i == 12 %}
+          {% set chosen_light = "light.kitchen_light" %}
+        {% elif i == 13 %}
+          {% set chosen_light = "light.kitchen_spotlight_1" %}
+        {% elif i == 14 %}
+          {% set chosen_light = "light.kitchen_spotlight_2" %}
+        {% elif i == 15 %}
+          {% set chosen_light = "light.kitchen_spotlight_3" %}
+        {% elif i == 16 %}
+          {% set chosen_light = "light.laundry_light" %}
+        {% elif i == 17 %}
+          {% set chosen_light = "light.main_bathroom_light" %}
+        {% elif i == 18 %}
+          {% set chosen_light = "light.main_bedroom_light" %}
+        {% elif i == 19 %}
+          {% set chosen_light = "light.media_room_back_light" %}
+        {% elif i == 20 %}
+          {% set chosen_light = "light.media_room_front_light" %}
+        {% elif i == 21 %}
+          {% set chosen_light = "light.office_light" %}
+        {% elif i == 22 %}
+          {% set chosen_light = "light.sewing_room_light" %}
         {% endif %}
         {{ chosen_light }}
       color_name: >-  
