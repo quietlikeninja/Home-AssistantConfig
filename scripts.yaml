@@ -60,3 +60,28 @@ set_christmas_color:
   - data: {}
     entity_id: all
     service: media_player.media_stop
+'1590062902243':
+  alias: Intruder Alert
+  sequence:
+  - data:
+      brightness_pct: 100
+      color_name: green
+    entity_id: all
+    service: light.turn_on
+  - data:
+      data:
+        type: tts
+      message: What are you doing in my swamp?!
+      target:
+      - media_player.justin_s_echo_plus
+      - media_player.bedroom_2_echo_dot
+      - media_player.main_bedroom_echo_dot
+      - media_player.media_room_echo_dot
+      - media_player.office_echo_dot
+      - media_player.sewing_room_echo_dot
+    service: notify.alexa_media
+  - data:
+      media_content_id: I'm a believer smashmouth
+      media_content_type: APPLE_MUSIC
+    entity_id: media_player.sewing_room_echo_dot,media_player.office_echo_dot,media_player.justin_s_echo_plus,media_player.media_room_echo_dot,media_player.bedroom_2_echo_dot,media_player.main_bedroom_echo_dot
+    service: media_player.play_media
