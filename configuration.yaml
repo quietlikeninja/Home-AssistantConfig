@@ -26,7 +26,7 @@ camera:
   
 remote:
   - platform: broadlink
-    host: 192.168.1.33
-    mac: 34:EA:34:99:EB:88
+    host: !secret broadlink_ip
+    mac: !secret broadlink_mac
     
 python_script:
