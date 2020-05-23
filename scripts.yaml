@@ -85,3 +85,49 @@ set_christmas_color:
       media_content_type: APPLE_MUSIC
     entity_id: media_player.sewing_room_echo_dot,media_player.office_echo_dot,media_player.justin_s_echo_plus,media_player.media_room_echo_dot,media_player.bedroom_2_echo_dot,media_player.main_bedroom_echo_dot
     service: media_player.play_media
+'1590062902244':
+  # Can be triggered via an Alexa routine
+  alias: Turn on cleaning mode
+  sequence:
+  - data: {}
+    entity_id: automation.turn_off_all_lights_when_justin_and_steph_leave
+    service: automation.turn_off
+  - data:
+      brightness_pct: 100
+      color_name: white
+    entity_id: all
+    service: light.turn_on
+  - data:
+      data:
+        type: tts
+      message: Cleaning Mode Enabled
+      target:
+      - media_player.justin_s_echo_plus
+      - media_player.bedroom_2_echo_dot
+      - media_player.main_bedroom_echo_dot
+      - media_player.media_room_echo_dot
+      - media_player.office_echo_dot
+      - media_player.sewing_room_echo_dot
+    service: notify.alexa_media
+'1590062902245':
+  # Can be triggered via an Alexa routine
+  alias: Turn off cleaning mode
+  sequence:
+  - data: {}
+    entity_id: automation.turn_off_all_lights_when_justin_and_steph_leave
+    service: automation.turn_on
+  - data: {}
+    entity_id: all
+    service: light.turn_off
+  - data:
+      data:
+        type: tts
+      message: Cleaning Mode Disabled
+      target:
+      - media_player.justin_s_echo_plus
+      - media_player.bedroom_2_echo_dot
+      - media_player.main_bedroom_echo_dot
+      - media_player.media_room_echo_dot
+      - media_player.office_echo_dot
+      - media_player.sewing_room_echo_dot
+    service: notify.alexa_media
