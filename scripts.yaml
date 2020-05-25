@@ -1,11 +1,3 @@
-'1589717423276':
-  alias: Learn Command
-  sequence:
-  - data:
-      command: power
-      device: living_room_tv
-    entity_id: remote.living_room_remote
-    service: remote.learn_command
 '1589717770567':
   alias: Send Power to Living Room TV
   sequence:
@@ -19,9 +11,7 @@ set_christmas_color:
   - service: light.turn_on
     data_template:
       entity_id: '{{ states.group.all_lights.attributes.entity_id | random }}'
-      color_name: >
-        {% set colors = ['white', 'red', 'green'] %}
-        {{ colors|random }}
+      color_name: '{% set colors = [''white'', ''red'', ''green''] %} {{ colors|random}}'
       transition: 10
 '1590062902241':
   alias: Vomit Christmas
@@ -40,6 +30,9 @@ set_christmas_color:
   - data: {}
     entity_id: automation.christmas_light_randomness
     service: automation.turn_off
+  - data: {}
+    entity_id: all
+    service: media_player.media_stop
   - data:
       brightness_pct: 100
       color_name: white
@@ -57,9 +50,6 @@ set_christmas_color:
       - media_player.office_echo_dot
       - media_player.sewing_room_echo_dot
     service: notify.alexa_media
-  - data: {}
-    entity_id: all
-    service: media_player.media_stop
 '1590062902243':
   alias: Intruder Alert
   sequence:
@@ -85,8 +75,30 @@ set_christmas_color:
       media_content_type: APPLE_MUSIC
     entity_id: media_player.sewing_room_echo_dot,media_player.office_echo_dot,media_player.justin_s_echo_plus,media_player.media_room_echo_dot,media_player.bedroom_2_echo_dot,media_player.main_bedroom_echo_dot
     service: media_player.play_media
+'1590062902246':
+  alias: Cancel Intruder Alert
+  sequence:
+  - data: {}
+    entity_id: all
+    service: media_player.media_stop
+  - data:
+      brightness_pct: 100
+      color_name: white
+    entity_id: all
+    service: light.turn_on
+  - data:
+      data:
+        type: tts
+      message: Intruder Alert Cancelled
+      target:
+      - media_player.justin_s_echo_plus
+      - media_player.bedroom_2_echo_dot
+      - media_player.main_bedroom_echo_dot
+      - media_player.media_room_echo_dot
+      - media_player.office_echo_dot
+      - media_player.sewing_room_echo_dot
+    service: notify.alexa_media
 '1590062902244':
-  # Can be triggered via an Alexa routine
   alias: Turn on cleaning mode
   sequence:
   - data: {}
@@ -110,7 +122,6 @@ set_christmas_color:
       - media_player.sewing_room_echo_dot
     service: notify.alexa_media
 '1590062902245':
-  # Can be triggered via an Alexa routine
   alias: Turn off cleaning mode
   sequence:
   - data: {}
@@ -130,4 +141,74 @@ set_christmas_color:
       - media_player.media_room_echo_dot
       - media_player.office_echo_dot
       - media_player.sewing_room_echo_dot
+    service: notify.alexa_media
+'1590202285979':
+  alias: Enable gaming mode
+  sequence:
+  - brightness_pct: 10
+    device_id: 001630a47e9740688accf69e914fb914
+    domain: light
+    entity_id: light.media_room_back_light
+    type: turn_on
+  - device_id: 01a5d6b0118b4c199e0a2e198e3d3cc7
+    domain: light
+    entity_id: light.media_room_front_light
+    type: turn_off
+  - data:
+      command: turn_on
+      device: media_room_projector
+    entity_id: remote.media_room_remote
+    service: remote.send_command
+  - data:
+      command: power
+      device: media_room_av
+    entity_id: remote.media_room_remote
+    service: remote.send_command
+  - data:
+      command: game
+      device: media_room_av
+    entity_id: remote.media_room_remote
+    service: remote.send_command
+  - data:
+      command: mute
+      device: media_room_av
+    entity_id: remote.media_room_remote
+    service: remote.send_command
+  - data:
+      data:
+        type: tts
+      message: Gaming Mode Enabled
+      target:
+      - media_player.media_room_echo_dot
+    service: notify.alexa_media
+'1590202285980':
+  alias: Disable gaming mode
+  sequence:
+  - brightness_pct: 100
+    device_id: 001630a47e9740688accf69e914fb914
+    domain: light
+    entity_id: light.media_room_back_light
+    type: turn_on
+  - device_id: 01a5d6b0118b4c199e0a2e198e3d3cc7
+    domain: light
+    entity_id: light.media_room_front_light
+    type: turn_off
+  - device_id: 001630a47e9740688accf69e914fb914
+    domain: light
+    entity_id: light.media_room_back_light
+    type: turn_off
+  - data:
+      command: turn_off
+      device: media_room_projector
+    entity_id: remote.media_room_remote
+    service: remote.send_command
+  - data: {}
+    entity_id: media_player.media_room_xbox_one
+    service: media_player.turn_off
+  - data:
+      data:
+        type: tts
+      message: Gaming Mode Disabled
+      target:
+      - media_player.media_room_echo_dot
     service: notify.alexa_media
