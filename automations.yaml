@@ -220,3 +220,16 @@
   condition: []
   action:
   - service: script.set_christmas_color
+- id: '1590414045441'
+  alias: Enable cleaner mode
+  description: ''
+  trigger:
+  - entity_id: sensor.cleaner
+    platform: state
+    to: Today
+  - at: 07:30:00
+    platform: time
+  condition: []
+  action:
+  - data: {}
+    service: script.1590062902244
