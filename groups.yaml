@@ -1,10 +1,12 @@
 #Lights
 Living Room Lights:
+    icon: hass:lightbulb-group
     entities:
         - light.living_room_left_light
         - light.living_room_right_light
         
 Kitchen Lights:
+    icon: hass:lightbulb-group
     entities:
         - light.kitchen_light
         - light.kitchen_spotlight_1
@@ -12,15 +14,92 @@ Kitchen Lights:
         - light.kitchen_spotlight_3
         
 Entry Lights:
+    icon: hass:lightbulb-group
     entities:
         - light.entry_back_light
         - light.entry_front_light
         - light.garage_entry_light
         
 Media Room Lights:
+    icon: hass:lightbulb-group
     entities:
         - light.media_room_back_light
         - light.media_room_front_light
+
+Main Bedroom Lights:
+    icon: hass:lightbulb-group
+    entities:
+        - light.main_bathroom_light
+        - light.main_bedroom_light
+
+All Lights:
+    icon: hass:lightbulb-group
+    entities:
+        - light.living_room_left_light
+        - light.living_room_right_light
+        - light.hue_play_1
+        - light.hue_play_2
+        - light.kitchen_light
+        - light.kitchen_spotlight_1
+        - light.kitchen_spotlight_2
+        - light.kitchen_spotlight_3
+        - light.entry_back_light
+        - light.entry_front_light
+        - light.garage_entry_light
+        - light.media_room_back_light
+        - light.media_room_front_light
+        - light.main_bathroom_light
+        - light.main_bedroom_light
+        - light.bedroom_2_light
+        - light.bedroom_3_light
+        - light.dining_room_light
+        - light.hallway_light
+        - light.laundry_light
+        - light.office_light
+        - light.sewing_room_light
+        - light.bathroom_light
+        
+Christmas Lights:
+    icon: hass:stringlights
+    entities:
+        - light.76431060f4cfa208bd8f
+        - light.76431060f4cfa208b77d
+
+All Lights Toggle:
+    icon: hass:lightbulb-group
+    entities:
+        - light.living_room_left_light
+        - light.living_room_right_light
+        - light.hue_play_1
+        - light.hue_play_2
+        - light.kitchen_light
+        - light.kitchen_spotlight_1
+        - light.kitchen_spotlight_2
+        - light.kitchen_spotlight_3
+        - light.entry_back_light
+        - light.entry_front_light
+        - light.garage_entry_light
+        - light.media_room_back_light
+        - light.media_room_front_light
+        - light.main_bathroom_light
+        - light.main_bedroom_light
+        - light.bedroom_2_light
+        - light.bedroom_3_light
+        - light.dining_room_light
+        - light.hallway_light
+        - light.laundry_light
+        - light.office_light
+        - light.sewing_room_light
+        - light.bathroom_light
+        - light.76431060f4cfa208bd8f
+        - light.76431060f4cfa208b77d
+
+Switch Lights:
+    icon: hass:lightbulb-group
+    entities:
+        - switch.lenovo_sp_1
+        - switch.lenovo_sp_2
+        - switch.garage_light
         
 #Speakers
 All Speakers:

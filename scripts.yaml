@@ -1,11 +1,67 @@
 '1589717770567':
-  alias: Send Power to Living Room TV
+  alias: Turn on Living Room TV
   sequence:
   - data:
       command: power
       device: living_room_tv
     entity_id: remote.living_room_remote
     service: remote.send_command
+  - type: turn_on
+    device_id: 0f78cce2a43d4a52b84063923f8c8372
+    entity_id: light.living_room_right_light
+    domain: light
+  - type: turn_on
+    device_id: e0a8149f4d014ac1828e61122d98263b
+    entity_id: light.living_room_left_light
+    domain: light
+  mode: single
+'1589717770568':
+  alias: Turn off Living Room TV
+  sequence:
+  - data:
+      command: power
+      device: living_room_tv
+    entity_id: remote.living_room_remote
+    service: remote.send_command
+  mode: single
+'1589717770569':
+  alias: Mute TV
+  sequence:
+  - data:
+      command: mute
+      device: living_room_tv
+    entity_id: remote.living_room_remote
+    service: remote.send_command
+  mode: single
+'1589717770570':
+  alias: Unmute Living Room TV
+  sequence:
+  - data:
+      command: mute
+      device: living_room_tv
+    entity_id: remote.living_room_remote
+    service: remote.send_command
+  mode: single
+'1589717770571':
+  alias: Turn Up Living Room TV
+  sequence:
+  - data:
+      command: volume_up
+      num_repeats: 5
+      device: living_room_tv
+    entity_id: remote.living_room_remote
+    service: remote.send_command
+  mode: single
+'1589717770572':
+  alias: Turn Down Living Room TV
+  sequence:
+  - data:
+      command: volume_down
+      num_repeats: 5
+      device: living_room_tv
+    entity_id: remote.living_room_remote
+    service: remote.send_command
+  mode: single
 set_christmas_color:
   sequence:
   - service: light.turn_on
@@ -16,32 +72,74 @@ set_christmas_color:
 '1590062902241':
   alias: Vomit Christmas
   sequence:
-  - data: {}
-    entity_id: automation.christmas_light_randomness
-    service: automation.turn_on
   - data:
       media_content_id: all i want for christmas mariah carey
       media_content_type: APPLE_MUSIC
     entity_id: media_player.sewing_room_echo_dot,media_player.office_echo_dot,media_player.justin_s_echo_plus,media_player.media_room_echo_dot,media_player.bedroom_2_echo_dot,media_player.main_bedroom_echo_dot
     service: media_player.play_media
+  - service: scene.create
+    data:
+      scene_id: vomit_christmas_revert
+      snapshot_entities:
+      - light.living_room_left_light
+      - light.living_room_right_light
+      - light.hue_play_1
+      - light.hue_play_2
+      - light.kitchen_light
+      - light.kitchen_spotlight_1
+      - light.kitchen_spotlight_2
+      - light.kitchen_spotlight_3
+      - light.entry_back_light
+      - light.entry_front_light
+      - light.garage_entry_light
+      - light.media_room_back_light
+      - light.media_room_front_light
+      - light.main_bathroom_light
+      - light.main_bedroom_light
+      - light.bedroom_2_light
+      - light.bedroom_3_light
+      - light.dining_room_light
+      - light.hallway_light
+      - light.laundry_light
+      - light.office_light
+      - light.sewing_room_light
+      - light.76431060f4cfa208bd8f
+      - light.76431060f4cfa208b77d
+      - switch.25662371807d3a03f64c
+  - data:
+      brightness_pct: 100
+      color_name: white
+    entity_id: group.all_lights
+    service: light.turn_on
+  - data: {}
+    entity_id: automation.christmas_light_randomness
+    service: automation.turn_on
+  - data: {}
+    entity_id: group.christmas_lights
+    service: light.turn_on
+  - service: switch.turn_on
+    entity_id: switch.25662371807d3a03f64c
+    data: {}
 '1590062902242':
   alias: Kill Christmas
   sequence:
   - data: {}
     entity_id: automation.christmas_light_randomness
     service: automation.turn_off
-  - data: {}
-    entity_id: all
-    service: media_player.media_stop
   - data:
       brightness_pct: 100
       color_name: white
-    entity_id: all
+    entity_id: group.all_lights
     service: light.turn_on
+  - data: {}
+    entity_id: all
+    service: media_player.media_stop
+  - service: scene.turn_on
+    entity_id: scene.vomit_christmas_revert
   - data:
       data:
         type: tts
-      message: Christmas is dead.
+      message: Bah Humbug! Christmas is dead.
       target:
       - media_player.justin_s_echo_plus
       - media_player.bedroom_2_echo_dot
@@ -50,18 +148,45 @@ set_christmas_color:
       - media_player.office_echo_dot
       - media_player.sewing_room_echo_dot
     service: notify.alexa_media
+  mode: single
 '1590062902243':
   alias: Intruder Alert
   sequence:
+  - service: scene.create
+    data:
+      scene_id: intruder_alert_revert
+      snapshot_entities:
+      - light.living_room_left_light
+      - light.living_room_right_light
+      - light.hue_play_1
+      - light.hue_play_2
+      - light.kitchen_light
+      - light.kitchen_spotlight_1
+      - light.kitchen_spotlight_2
+      - light.kitchen_spotlight_3
+      - light.entry_back_light
+      - light.entry_front_light
+      - light.garage_entry_light
+      - light.media_room_back_light
+      - light.media_room_front_light
+      - light.main_bathroom_light
+      - light.main_bedroom_light
+      - light.bedroom_2_light
+      - light.bedroom_3_light
+      - light.dining_room_light
+      - light.hallway_light
+      - light.laundry_light
+      - light.office_light
+      - light.sewing_room_light
   - data:
       brightness_pct: 100
       color_name: green
-    entity_id: all
+    entity_id: group.all_lights
     service: light.turn_on
   - data:
       data:
         type: tts
-      message: What are you doing in my swamp?!
+      message: What are you doing in my swamp?! Im calling Cam!
       target:
       - media_player.justin_s_echo_plus
       - media_player.bedroom_2_echo_dot
@@ -78,14 +203,16 @@ set_christmas_color:
 '1590062902246':
   alias: Cancel Intruder Alert
   sequence:
-  - data: {}
-    entity_id: all
-    service: media_player.media_stop
   - data:
       brightness_pct: 100
       color_name: white
-    entity_id: all
+    entity_id: group.all_lights
     service: light.turn_on
+  - service: scene.turn_on
+    entity_id: scene.intruder_alert_revert
+  - data: {}
+    entity_id: all
+    service: media_player.media_stop
   - data:
       data:
         type: tts
@@ -107,7 +234,7 @@ set_christmas_color:
   - data:
       brightness_pct: 100
       color_name: white
-    entity_id: all
+    entity_id: group.all_lights
     service: light.turn_on
   - data:
       data:
@@ -197,14 +324,12 @@ set_christmas_color:
     domain: light
     entity_id: light.media_room_back_light
     type: turn_off
+  - delay: 00:00:30
   - data:
       command: turn_off
       device: media_room_projector
     entity_id: remote.media_room_remote
     service: remote.send_command
-  - data: {}
-    entity_id: media_player.media_room_xbox_one
-    service: media_player.turn_off
   - data:
       data:
         type: tts
@@ -212,3 +337,57 @@ set_christmas_color:
       target:
       - media_player.media_room_echo_dot
     service: notify.alexa_media
+'1590842966133':
+  alias: Run Speedtest
+  sequence:
+  - data: {}
+    service: speedtestdotnet.speedtest
+'1596065011901':
+  alias: Operation Joe
+  sequence:
+  - data:
+      message: Oh no Joe!,  There's an intruder in our swamp!
+    service: notify.clicksend_tts
+turn_off_all_lights:
+  alias: Turn off all lights
+  mode: single
+  sequence:
+  - data: {}
+    entity_id: all
+    service: light.turn_off
+'1606803030200':
+  alias: Create Scene
+  sequence:
+  - service: scene.create
+    data:
+      scene_id: test
+      snapshot_entities:
+      - light.living_room_left_light
+      - light.living_room_right_light
+      - light.hue_play_1
+      - light.hue_play_2
+      - light.kitchen_light
+      - light.kitchen_spotlight_1
+      - light.kitchen_spotlight_2
+      - light.kitchen_spotlight_3
+      - light.entry_back_light
+      - light.entry_front_light
+      - light.garage_entry_light
+      - light.media_room_back_light
+      - light.media_room_front_light
+      - light.main_bathroom_light
+      - light.main_bedroom_light
+      - light.bedroom_2_light
+      - light.bedroom_3_light
+      - light.dining_room_light
+      - light.hallway_light
+      - light.laundry_light
+      - light.office_light
+      - light.sewing_room_light
+  mode: single
+'1606803030201':
+  alias: Revert Scene
+  sequence:
+  - service: scene.turn_on
+    entity_id: scene.test
+  mode: single

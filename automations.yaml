@@ -179,10 +179,7 @@
     event: enter
     platform: zone
     zone: zone.home
-  condition:
-    condition: state
-    entity_id: sun.sun
-    state: below_horizon
+  condition: []
   action:
   - device_id: 8ee26012d1a54a8086f9a1a441cebe88
     domain: light
@@ -212,6 +209,11 @@
     domain: light
     entity_id: light.kitchen_light
     type: turn_on
+  - type: turn_on
+    device_id: c4fd7a3a33ab11ebadfc5f2c84dd6230
+    entity_id: switch.30460460e09806c9cc3d
+    domain: switch
+  mode: single
 - id: '1544837457650'
   alias: Christmas Light Randomness
   trigger:
@@ -224,12 +226,109 @@
   alias: Enable cleaner mode
   description: ''
   trigger:
-  - entity_id: sensor.cleaner
-    platform: state
-    to: Today
-  - at: 07:30:00
+  - at: '9:00:00'
     platform: time
-  condition: []
+  condition:
+  - condition: state
+    entity_id: sensor.cleaner
+    state: today
   action:
   - data: {}
     service: script.1590062902244
+  mode: single
+- id: '1596070179011'
+  alias: Operation Joe
+  description: ''
+  trigger:
+  - entity_id: sensor.hp_color_laserjet_pro_m479
+    from: printing
+    platform: state
+    to: idle
+  condition: []
+  action:
+  - data: {}
+    service: script.1596065011901
+- id: '1598433091742'
+  alias: Garage Door Open
+  description: ''
+  trigger:
+  - for: 00:05:00
+    platform: state
+    to: open
+    entity_id: cover.garage_door_controller_gen5_barrier_state
+  condition: []
+  action:
+  - data:
+      data:
+        type: tts
+      message: Garage Door has been open for 5 minutes
+      target:
+      - media_player.justin_s_echo_plus
+    service: notify.alexa_media
+  - data:
+      message: The garage door has been open for 5 minutes
+    service: notify.mobile_app_bilberry_ii
+  mode: single
+- id: '1598433091743'
+  alias: Notify if Naomi Watts is not plugged in at night
+  trigger:
+  - platform: time
+    at: '21:30:00'
+  condition:
+  - condition: and
+    conditions:
+    - condition: state
+      entity_id: binary_sensor.red_charger_sensor
+      state: 'off'
+    - condition: template
+      value_template: '{{ is_state_attr(''binary_sensor.red_parking_brake_sensor'',
+        ''shift_state'', ''P'')}}'
+  action:
+  - service: notify.notify
+    data:
+      message: Naomi Watts is not plugged in!
+      title: Alarm
+  initial_state: true
+  mode: single
+- id: '1606016067361'
+  alias: Turn on Christmas Lights
+  description: ''
+  trigger:
+  - platform: sun
+    event: sunset
+  condition: []
+  action:
+  - domain: light
+    entity_id: light.76431060f4cfa208bd8f
+    device_id: f66d4d0c263c11eba11e87f077c7e82b
+    type: turn_on
+  - domain: light
+    entity_id: light.76431060f4cfa208b77d
+    device_id: ab51006d2c6d11eb9d43774e8230bd70
+    type: turn_on
+  - type: turn_on
+    device_id: 09bae957102e11ebb936d1a26bdffdd2
+    entity_id: switch.lenovo_sp_1
+    domain: switch
+  mode: single
+- id: '1606016200305'
+  alias: Turn off Christmas Lights
+  description: ''
+  trigger:
+  - platform: time
+    at: '22:00:00'
+  condition: []
+  action:
+  - type: turn_off
+    device_id: f66d4d0c263c11eba11e87f077c7e82b
+    entity_id: light.76431060f4cfa208bd8f
+    domain: light
+  - type: turn_off
+    device_id: ab51006d2c6d11eb9d43774e8230bd70
+    entity_id: light.76431060f4cfa208b77d
+    domain: light
+  - type: turn_off
+    device_id: 09bae957102e11ebb936d1a26bdffdd2
+    entity_id: switch.lenovo_sp_1
+    domain: switch
+  mode: single
